@@ -1,13 +1,19 @@
 const Ship = require('../src/ship.js')
 const Port = require('../src/port.js')
+const Itinerary = require('../src/itinerary.js')
 
 describe('Ship', () => {
     it('returns an Object', () => {
-        expect(new Ship()).toBeInstanceOf(Object);
+        const port = new Port('Hull');
+        const itinerary = new Itinerary([port]);
+        const ship = new Ship(itinerary);
+
+        expect(ship).toBeInstanceOf(Object);
     });
     it('Has a starting port', () => {
         const port = new Port('Hull');
-        const ship = new Ship(port);
+        const itinerary = new Itinerary([port]);
+        const ship = new Ship(itinerary);
 
         expect(ship.currentPort).toBe(port);
     });
@@ -15,8 +21,10 @@ describe('Ship', () => {
 
 describe('setSail', () => {
     it('can set sail', () => {
-        const port = new Port('Hull');
-        const ship = new Ship(port);
+        const hull = new Port('Hull');
+        const bergen = new Port('Bergen');
+        const itinerary = new Itinerary([hull, bergen]);
+        const ship = new Ship(itinerary);
 
         ship.setSail();
 
@@ -26,12 +34,25 @@ describe('setSail', () => {
 
 describe('dockShip', () => {
     it('can dock at a different port', () => {
-        const Hull = new Port('Hull');
-        const ship = new Ship(Hull);
+        const hull = new Port('Hull');
+        const bergen = new Port('Bergen');
+        const itinerary = new Itinerary([hull, bergen])
+        const ship = new Ship(itinerary);
+        
+        ship.setSail();
+        ship.dockShip();
 
-        const Bergen = new Port('Bergen');
-        ship.dockShip(Bergen);
+        expect(ship.currentPort).toBe(bergen);
+    });
+    it('cannot sail beyond its itinerary', () => {
+        const hull = new Port('Hull');
+        const bergen = new Port('Bergen');
+        const itinerary = new Itinerary([hull, bergen])
+        const ship = new Ship(itinerary);
+        
+        ship.setSail();
+        ship.dockShip();
 
-        expect(ship.currentPort).toBe(Bergen);
+        expect(() => ship.setSail()).toThrowError('Reached end of itinerary');
     });
 });
