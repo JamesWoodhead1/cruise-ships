@@ -6,8 +6,8 @@ describe('itinerary', () => {
         expect(new Itinerary()).toBeInstanceOf(Object);
     });
     it('can have ports', () => {
-        const hull = new Port('Hull');
-        const bergen = new Port('Bergen');
+        const hull = jest.fn();
+        const bergen = jest.fn();
 
         const itinerary = new Itinerary([hull, bergen]);
 

@@ -11,7 +11,7 @@ describe('port', () => {
     });
     it('can add a ship', () => {
         const port = new Port('Hull');
-        const ship = {};
+        const ship = jest.fn();
 
         port.addShip(ship);
 
@@ -19,13 +19,13 @@ describe('port', () => {
     });
     it('can remove a ship', () => {
         const port = new Port('Hull');
-        const titanic = {};
-        const queenElizabeth = {};
+        const titanic = jest.fn();
+        const queenElizabeth = jest.fn();
 
         port.addShip(titanic);
         port.addShip(queenElizabeth);
         port.removeShip(queenElizabeth);
 
         expect(port.ships).toEqual([titanic]);
-    })
+    });
 });

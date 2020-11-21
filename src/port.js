@@ -8,7 +8,7 @@ Port.prototype.addShip = function (ship) {
 }
 
 Port.prototype.removeShip = function (ship) {
-    this.ships.splice(ship, 1);
+    this.ships.pop(ship);
 }
 
 module.exports = Port;
