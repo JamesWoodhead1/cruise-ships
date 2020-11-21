@@ -8,9 +8,24 @@ describe('Ship', () => {
         let bergen;
         let itinerary;
         let ship;
+        let port;
         beforeEach(() => {
-            hull = new Port('Hull');
-            bergen = new Port('Bergen');
+            port = {
+                removeShip: jest.fn(),
+                addShip: jest.fn(),
+            };
+
+            hull = {
+                ...port,
+                name: 'Hull',
+                ships: []
+            };
+
+            bergen = {
+                ...port,
+                name: 'Bergen',
+                ships: []
+            };
             itinerary = new Itinerary([hull, bergen]);
             ship = new Ship(itinerary);
         })
@@ -21,26 +36,23 @@ describe('Ship', () => {
         expect(ship.currentPort).toBe(hull);
     });
     it('gets added to port when instanced', () => {
-        expect(hull.ships).toContain(ship);
+        expect(port.addShip).toHaveBeenCalledWith(ship);
     });
-});
     it('can set sail', () => {
-        const hull = new Port('Hull');
-        const bergen = new Port('Bergen');
-        const itinerary = new Itinerary([hull, bergen]);
-        const ship = new Ship(itinerary);
-
         ship.setSail();
 
         expect(ship.currentPort).toBeFalsy();
-        expect(hull.ships).not.toContain(ship);
+        expect(hull.removeShip).toHaveBeenCalledWith(ship);
     });
+});
+});
+describe('dockShip', () => {
     it('can dock at a different port', () => {
         const hull = new Port('Hull');
         const bergen = new Port('Bergen');
         const itinerary = new Itinerary([hull, bergen]);
         const ship = new Ship(itinerary);
-
+        
         ship.setSail();
         ship.dockShip();
 
