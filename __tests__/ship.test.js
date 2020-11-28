@@ -26,9 +26,13 @@ describe('Ship', () => {
                 name: 'Bergen',
                 ships: []
             };
-            itinerary = new Itinerary([hull, bergen]);
+
+            itinerary = {
+                ports: [hull, bergen]
+            };
+            
             ship = new Ship(itinerary);
-        })
+        });
     it('returns an Object', () => {
         expect(ship).toBeInstanceOf(Object);
     });
