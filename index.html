@@ -1,21 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cruise Ships</title>
-  <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/style.css">
-</head>
-<div id="viewport">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cruise Ships</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/normalize.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-</div>
-<script src="src/controller.js"></script>
-<script>
-  const controller = new Controller();
-</script>
-<body>
-  
-</body>
+  <body>
+    <div class="main_wrapper">
+
+      <div class="portFormSection">
+          <div class="portForm">
+              <form action="#">
+              <label for="enterPort">Enter ports you'd like to go to:</label><br>
+              <input type="text" id="enterPort" name="enterPort" />
+              <div class="portForm">
+              <input type="submit" value="Submit Port" id="submitPortButton" />
+              </form>
+              </div>
+          </div>
+      </div>
+
+
+
+      <div id="setSailSection">
+        <div class="setSailContainer">
+          <button type="button" id="setSailButton">Set Sail</button>
+        </div>
+      </div>
+
+
+
+      <div id="viewport">
+        <div id="ports"></div>
+
+        <div id="ship"></div>
+        <div id="message"></div>
+      </div>
+    </div>
+
+    <script src="src/controller.js"></script>
+    <script src="src/port.js"></script>
+    <script src="src/itinerary.js"></script>
+    <script src="src/ship.js"></script>
+    <script>
+
+      const itinerary = new Itinerary([]);
+      const ship = new Ship(itinerary);
+      const controller = new Controller(ship);
+
+    function submitPortsFunction() {
+    event.preventDefault();
+    const enterPortInput = document.getElementById('enterPort').value;
+    if (!enterPortInput) {
+        alert('Avast! Please enter a port name me heartie.')
+     } else {
+        const port = new Port(enterPortInput);
+        controller.ship.itinerary.ports.push(port);
+        controller.ship.dockShip();
+        controller.renderPorts();
+        document.querySelector('#enterPort').value = "";       
+    }};
+      document.getElementById('submitPortButton').addEventListener('click', submitPortsFunction);
+
+    </script>
+  </body>
 </html>

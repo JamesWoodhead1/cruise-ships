@@ -1,3 +1,4 @@
+(function exportPort() {
 function Port(name) {
     this.name = name;
     this.ships = [];
@@ -8,7 +9,12 @@ Port.prototype.addShip = function (ship) {
 }
 
 Port.prototype.removeShip = function (ship) {
-    this.ships.pop(ship);
+    this.ships = this.ships.filter(dockedShip => dockedShip !== ship);
 }
 
-module.exports = Port;
+if (typeof module !== `undefined` && module.exports) {
+    module.exports = Port;
+} else {
+    window.Port = Port;
+}
+}());
