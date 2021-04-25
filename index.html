@@ -13,8 +13,10 @@
   </head>
 
   <body>
+<!-- START OF MAIN WRAPPER -->
     <div class="main_wrapper">
 
+<!--START OF PORT FORM SECTION -->
       <div class="portFormSection">
           <div class="portForm">
               <form action="#">
@@ -26,24 +28,27 @@
               </div>
           </div>
       </div>
+<!--END OF PORT FORM SECTION-->
 
-
-
+<!--START OF SET SAIL BUTTON SECTION-->
       <div id="setSailSection">
         <div class="setSailContainer">
           <button type="button" id="setSailButton">Set Sail</button>
         </div>
       </div>
+<!--END OF SET SAIL BUTTON SECTION -->
 
-
-
+<!--START OF VIEWPORT FOR CRUISE SHIP SECTION -->
       <div id="viewport">
         <div id="ports"></div>
-
+        <!--PORTS ADDED IN HERE BY RENDERPORTS-->
         <div id="ship"></div>
         <div id="message"></div>
       </div>
+<!--END OF VIEWPORT FOR CRUISE SHIP SECTION -->
+
     </div>
+<!-- END OF MAIN WRAPPER -->
 
     <script src="src/controller.js"></script>
     <script src="src/port.js"></script>
@@ -63,7 +68,7 @@
      } else {
         const port = new Port(enterPortInput);
         controller.ship.itinerary.ports.push(port);
-        controller.ship.dockShip();
+        controller.ship.dock();
         controller.renderPorts();
         document.querySelector('#enterPort').value = "";       
     }};
